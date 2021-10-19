@@ -3,6 +3,7 @@ import { Input } from '../../Forms/Input';
 import { Button } from '../../Forms/Button';
 import { TransactionTypeButton } from '../../Forms/TransactionTypeButton';
 import { Container, Header, Title, Form, Fields, TransactionTypes } from './styles';
+import { CategorySelect } from '../../Forms/CategorySelect';
 
 export function Register(){
 
@@ -29,20 +30,22 @@ export function Register(){
                   placeholder="Preço"
                   />
 
-              <TransactionTypes>
-                <TransactionTypeButton
-                type="up"
-                title="income"
-                isActive={ transactionType === 'up'}
-                onPress={() => handleTransactionsTypeSelect('up')}
-                />
-                <TransactionTypeButton
-                type="down"
-                title="outcome"
-                isActive={ transactionType === 'down'}
-                onPress={() => handleTransactionsTypeSelect('down')}
-                />
-              </TransactionTypes>
+                <TransactionTypes>
+                  <TransactionTypeButton
+                  type="up"
+                  title="income"
+                  isActive={ transactionType === 'up'}
+                  onPress={() => handleTransactionsTypeSelect('up')}
+                  />
+                  <TransactionTypeButton
+                  type="down"
+                  title="outcome"
+                  isActive={ transactionType === 'down'}
+                  onPress={() => handleTransactionsTypeSelect('down')}
+                  />
+                </TransactionTypes>
+
+                <CategorySelect title="Categoria"/>
 
               </Fields>
               <Button title="Enviar" />
