@@ -13,7 +13,7 @@ import { //instalado com expo install expo-font @expo-google-fonts/NOMEDAFONTE
 import theme from './src/global/style/theme';
 
 import { Dashboard } from './src/screens/Dashboard/index';
-import { CategorySelect } from './src/screens/CategorySelect/index';
+import { Register } from './src/screens/Register';
 
 export default function App() {
   const [fontsLoad] = useFonts({
@@ -29,7 +29,7 @@ export default function App() {
   return (
     //theme provider é um components que envolve o projeto para que dar acesso ao tema
     <ThemeProvider theme={theme}>
-      <CategorySelect/>
+      <Register/>
     </ThemeProvider>
   )
 }

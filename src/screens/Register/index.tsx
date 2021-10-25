@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
-import { Input } from '../../Forms/Input';
-import { Button } from '../../Forms/Button';
-import { TransactionTypeButton } from '../../Forms/TransactionTypeButton';
+import { Modal } from 'react-native';
+import { Input } from '../../components/Forms/Input';
+import { Button } from '../../components/Forms/Button';
+import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
 import { Container, Header, Title, Form, Fields, TransactionTypes } from './styles';
-import { CategorySelect } from '../../Forms/CategorySelect';
+import { CategorySelectButton } from '../../components/Forms/CategorySelectButton';
+import { CategorySelect } from '../CategorySelect';
 
 export function Register(){
 
   const [ transactionType, setTransactionType ] = useState('');
+  const [ categoryModalClose, setCategoryModalClose ] = useState(false);
+
+  const [ selectCategory, setSelectCategory ] = useState({
+    key: 'category',
+    name: 'Categoria',
+  });
 
   function handleTransactionsTypeSelect(type: 'up' | 'down'){
     setTransactionType(type)
+  }
+
+  function handleCloseSelectCategoryModal(){
+    setCategoryModalClose(false);
+  }
+
+  function handleOpenSelectCategoryModal(){
+    setCategoryModalClose(true);
   }
     
   return (
@@ -45,11 +61,22 @@ export function Register(){
                   />
                 </TransactionTypes>
 
-                <CategorySelect title="Categoria"/>
+                <CategorySelectButton 
+                  title={selectCategory.name}
+                  onPress={handleOpenSelectCategoryModal}
+                />
 
               </Fields>
               <Button title="Enviar" />
             </Form>
+
+            <Modal visible={categoryModalClose}>
+              <CategorySelect 
+              category={selectCategory}
+              setCategory={setSelectCategory}
+              closeSelectCategory={handleCloseSelectCategoryModal}
+              />
+            </Modal>
 
         </Container>
     )
