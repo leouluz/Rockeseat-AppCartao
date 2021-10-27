@@ -15,6 +15,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
+      tsx: true,
     },
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -22,7 +23,7 @@ module.exports = {
   plugins: ['react', 'prettier', 'jsx-a11y', 'react-hooks', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
-    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx', 'tsx', 'ts'] }],
     'import/prefer-default-export': 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react/jsx-one-expression-per-line': 'off',
@@ -51,7 +52,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       'node': {
-        'extensions': [".native.js"],
+        'extensions': [".native.tsx"],
       },
       'babel-plugin-root-import': {
         rootPathSuffix: 'src',

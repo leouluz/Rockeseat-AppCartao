@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-native';
+import { useForm } from 'react-hook-form'
+
+
 import { Input } from '../../components/Forms/Input';
 import { Button } from '../../components/Forms/Button';
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
 import { Container, Header, Title, Form, Fields, TransactionTypes } from './styles';
 import { CategorySelectButton } from '../../components/Forms/CategorySelectButton';
 import { CategorySelect } from '../CategorySelect';
+import { InputForm } from '../../components/Forms/InputForm';
+
+interface FormData{
+  name: string,
+  amount: string
+}
 
 export function Register(){
 
@@ -16,6 +25,11 @@ export function Register(){
     key: 'category',
     name: 'Categoria',
   });
+
+  const {
+    control,
+    handleSubmit
+  } = useForm();
 
   function handleTransactionsTypeSelect(type: 'up' | 'down'){
     setTransactionType(type)
@@ -28,7 +42,17 @@ export function Register(){
   function handleOpenSelectCategoryModal(){
     setCategoryModalClose(true);
   }
-    
+  
+  function handleRegister(form: FormData){
+    const data = {
+      name: form.name,
+      amout: form.amount,
+      transactionType,
+      category: selectCategory.key
+    }
+    console.log(data)
+  }
+
   return (
         <Container>
             <Header>
@@ -39,10 +63,14 @@ export function Register(){
 
             <Form>
               <Fields>
-                <Input
+                <InputForm
+                  name="name"
+                  control={control}
                   placeholder="Nome"
                   />
-                <Input
+                <InputForm
+                  name="amount"
+                  control={control}
                   placeholder="Preço"
                   />
 
@@ -67,7 +95,10 @@ export function Register(){
                 />
 
               </Fields>
-              <Button title="Enviar" />
+              <Button 
+                title="Enviar"
+                onPress={handleSubmit(handleRegister)} 
+              />
             </Form>
 
             <Modal visible={categoryModalClose}>
