@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import { Feather } from '@expo/vector-icons'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { BorderlessButton } from 'react-native-gesture-handler'
 
 import { DataListProps } from './';
 
@@ -64,6 +65,10 @@ export const UserName = styled.Text`
   font-size: ${RFValue(18)}px;
 `;
 
+export const LogoutButton = styled(BorderlessButton)`
+
+`;
+
 export const Icon = styled(Feather)`
   font-size: ${RFValue(24)}px;
   color: ${({theme}) => theme.colors.secondary};
@@ -83,7 +88,7 @@ export const Transactions = styled.View`
   flex: 1%;
   padding: 0 24px;
 
-  margin-top: ${RFPercentage(12)}px;
+  margin-top: ${RFPercentage(15)}px;
 
 `;
 export const Title = styled.Text`
