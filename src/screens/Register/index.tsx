@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import * as Yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid'
 
 import { Button } from '../../components/Forms/Button';
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
@@ -12,6 +13,8 @@ import { Container, Header, Title, Form, Fields, TransactionTypes } from './styl
 import { CategorySelectButton } from '../../components/Forms/CategorySelectButton';
 import { CategorySelect } from '../CategorySelect';
 import { InputForm } from '../../components/Forms/InputForm';
+
+import { useNavigation } from '@react-navigation/native';
 
 interface FormData {
   name: string,
@@ -28,7 +31,6 @@ const schema = Yup.object().shape({
 
 export function Register() {
 
-  const dataKey = '@gofinances:transactions';
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalClose, setCategoryModalClose] = useState(false);
 
@@ -37,9 +39,12 @@ export function Register() {
     name: 'Categoria',
   });
 
+  const navigation = useNavigation();
+
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema)
@@ -65,13 +70,18 @@ export function Register() {
       return Alert.alert('Escolha uma categoria!')
 
     const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amout: form.amount,
       transactionType,
-      category: selectCategory.key
+      category: selectCategory.key,
+      date: new Date()
+
     }
 
     try {
+      const dataKey = '@gofinances:transactions';
+
       const data = await AsyncStorage.getItem(dataKey);
 
       const currentData = data ? JSON.parse(data) : [];
@@ -82,19 +92,20 @@ export function Register() {
       ]
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated))
 
+      reset();
+      setTransactionType('');
+      setSelectCategory({
+        key: 'category',
+        name: 'Categoria'
+      });
+
+      navigation.navigate('Listagem');
+
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível salvar!");
     }
   }
-
-  useEffect(() => {
-    async function loadData() {
-      const valor = await AsyncStorage.getItem(dataKey)
-      console.log(valor);
-    }
-    loadData()
-  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

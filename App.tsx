@@ -1,9 +1,18 @@
 import React from 'react';
-import AppLoading from 'expo-app-loading' //expo install expo-app-loading
+
+// yarn add intl - apenas para o funcionamento do android
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
+//expo install expo-app-loading
+import AppLoading from 'expo-app-loading'
 
 import { ThemeProvider } from 'styled-components';
-import { //instalado com expo install expo-font @expo-google-fonts/NOMEDAFONTE
-  useFonts, //hooks para usar as fonts
+
+//instalado com expo install expo-font @expo-google-fonts/NOMEDAFONTE
+import {
+  //hooks para usar as fonts
+  useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold,
@@ -23,15 +32,15 @@ export default function App() {
     Poppins_700Bold,
   });
 
-  if(!fontsLoad){
-    return <AppLoading/>
+  if (!fontsLoad) {
+    return <AppLoading />
   }
 
   return (
     //theme provider é um components que envolve o projeto para que dar acesso ao tema
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <AppRoutes/>
+        <AppRoutes />
       </NavigationContainer>
     </ThemeProvider>
   )
