@@ -136,8 +136,6 @@ export function Dashboard() {
         lastTransaction: lastTransactiontotal
       },
     });
-    console.log(highlightData)
-
     setIsLoading(false)
   }
 
