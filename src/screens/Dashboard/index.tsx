@@ -105,7 +105,7 @@ export function Dashboard() {
           date,
         }
       });
-    setTransactions(transactionsFormatted);
+    setTransactions(transactionsFormatted.reverse());
 
     const lastTransactionExpensive = getLastTransactionDate(transactions, 'negative');
     const lastTransactionEntries = getLastTransactionDate(transactions, 'positive');
