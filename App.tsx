@@ -42,8 +42,7 @@ export default function App() {
     //theme provider é um components que envolve o projeto para que dar acesso ao tema
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-      <StatusBar
-        barStyle="light-content" />
+      <StatusBar style="light"/>
         <AppRoutes />
       </NavigationContainer>
     </ThemeProvider>
