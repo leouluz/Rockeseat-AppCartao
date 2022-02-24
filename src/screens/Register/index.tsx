@@ -25,8 +25,9 @@ const schema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório!'),
   amount: Yup
     .number()
-    .typeError('Digite um valor númerico!')
+    .typeError('Informe um valor númerico')
     .positive('Digite um valor positivo!')
+    .required('O valor é obrigatório!')
 });
 
 export function Register() {
@@ -99,7 +100,7 @@ export function Register() {
         name: 'Categoria'
       });
 
-      navigation.navigate('Listagem');
+      navigation.navigate("Listagem");
 
     } catch (error) {
       console.log(error);

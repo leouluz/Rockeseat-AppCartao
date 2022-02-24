@@ -1,5 +1,7 @@
+import 'react-native-gesture-handler'
 import React from 'react';
 
+import { StatusBar } from 'expo-status-bar';
 // yarn add intl - apenas para o funcionamento do android
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
@@ -40,6 +42,8 @@ export default function App() {
     //theme provider é um components que envolve o projeto para que dar acesso ao tema
     <ThemeProvider theme={theme}>
       <NavigationContainer>
+      <StatusBar
+        barStyle="light-content" />
         <AppRoutes />
       </NavigationContainer>
     </ThemeProvider>
