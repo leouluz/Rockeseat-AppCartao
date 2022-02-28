@@ -150,7 +150,6 @@ export function Dashboard() {
 
   return (
     <Container>
-      <ActivityIndicator />
       {
         isLoading ?
           <LoadContainer>

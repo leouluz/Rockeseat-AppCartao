@@ -10,6 +10,7 @@ import 'intl/locale-data/jsonp/pt-BR';
 import AppLoading from 'expo-app-loading'
 
 import { ThemeProvider } from 'styled-components';
+import { AuthProvider } from './src/hooks/auth'
 
 //instalado com expo install expo-font @expo-google-fonts/NOMEDAFONTE
 import {
@@ -20,12 +21,13 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins'
 
+import { Signin }  from './src/screens/Signin'
 
 import theme from './src/global/style/theme';
 
 import { NavigationContainer } from '@react-navigation/native'
 
-import AppRoutes from './src/routes/app.routes';
+import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
   const [fontsLoad] = useFonts({
@@ -43,7 +45,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
       <StatusBar style="light"/>
-        <AppRoutes />
+        <AuthProvider>
+          <Signin />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   )
