@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "projeto-aula",
-    "slug": "projeto-aula",
+    "name": "gofinances",
+    "slug": "gofinances",
+    "scheme": "gofinances",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
