@@ -1,7 +1,9 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react'
 
-// https://docs.expo.dev/versions/latest/sdk/google-sign-in/
-// Tentar implantar googlesign-in
+//  yarn add babel-plugin-inline-dotenv
+const { CLIENT_ID, REDIRECT_URI } = process.env;
+
+// expo install expo-auth-session expo-random
 import * as AuthSession from 'expo-auth-session';
 interface AuthProviderProps{
   children: ReactNode;
@@ -35,8 +37,6 @@ function AuthProvider({ children }: AuthProviderProps){
 
   async function signInWithGoogle() {
     try{
-      const CLIENT_ID = '1057368563398-ulk5m32gtl2c6tq6rvctkc025ecpd1bi.apps.googleusercontent.com';
-      const REDIRECT_URI = 'https://auth.expo.io/@leouluz/gofinances';
       const RESPONSE_TYPE = 'token';
       const SCOPE = encodeURI('profile email');
 
