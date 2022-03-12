@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react'
 
 //  yarn add babel-plugin-inline-dotenv
 const { CLIENT_ID, REDIRECT_URI } = process.env;
@@ -40,6 +40,7 @@ export const AuthContext = createContext({} as IAuthContextData);
 function AuthProvider({ children }: AuthProviderProps){
 
   const [user, setUser] = useState<User>({} as User);
+  const [userStorageLoading, setUserStorageLoading] = useState(true);
 
   const userStorageKey = '@gofinances:user';
 
@@ -101,6 +102,19 @@ function AuthProvider({ children }: AuthProviderProps){
       throw new Error(error)
     }
   }
+
+  useEffect(() => {
+    async function loadUserStorageDate() {
+      const userStoraged = await AsyncStorage.getItem(userStorageKey);
+
+      if(userStoraged){
+        const userLogged = JSON.parse(userStoraged) as User;
+        setUser(userLogged);
+      }
+      setUserStorageLoading(false);
+    } 
+    loadUserStorageDate();
+  }, [])
 
   return(
     <AuthContext.Provider value={{
