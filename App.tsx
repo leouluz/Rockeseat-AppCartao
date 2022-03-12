@@ -25,7 +25,7 @@ import { Signin }  from './src/screens/Signin'
 
 import theme from './src/global/style/theme';
 
-import { NavigationContainer } from '@react-navigation/native'
+import { Routes } from './src/routes'
 
 import { AppRoutes } from './src/routes/app.routes';
 
@@ -43,12 +43,10 @@ export default function App() {
   return (
     //theme provider é um components que envolve o projeto para que dar acesso ao tema
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
       <StatusBar style="light"/>
         <AuthProvider>
-          <Signin />
+          <Routes />
         </AuthProvider>
-      </NavigationContainer>
     </ThemeProvider>
   )
 }
