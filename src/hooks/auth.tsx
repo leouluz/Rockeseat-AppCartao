@@ -1,7 +1,8 @@
 import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react'
 
 //  yarn add babel-plugin-inline-dotenv
-const { CLIENT_ID, REDIRECT_URI } = process.env;
+const { CLIENT_ID } = process.env;
+const { REDIRECT_URI } = process.env;
 
 // expo install expo-auth-session expo-random
 import * as AuthSession from 'expo-auth-session';
@@ -23,8 +24,10 @@ interface User {
 
 interface IAuthContextData{
   user: User;
-  signInWithGoogle(): Promise<void>
-  signInWithApple(): Promise<void>
+  signInWithGoogle(): Promise<void>;
+  signInWithApple(): Promise<void>;
+  signOut(): Promise<void>;
+  userStorageLoading: boolean;
 }
 
 interface AuthorizationResponse{
@@ -34,26 +37,25 @@ interface AuthorizationResponse{
   type: string;
 }
 
-
 export const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps){
-
+  
   const [user, setUser] = useState<User>({} as User);
   const [userStorageLoading, setUserStorageLoading] = useState(true);
-
+  
   const userStorageKey = '@gofinances:user';
-
+  
   async function signInWithGoogle() {
     try{
       const RESPONSE_TYPE = 'token';
       const SCOPE = encodeURI('profile email');
-
+      
       const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
 
       const { params, type } = await AuthSession
       .startAsync({authUrl}) as AuthorizationResponse;
-
+      
       if(type === 'success'){
         const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`);
         const userInfo = await response.json();
@@ -84,11 +86,13 @@ function AuthProvider({ children }: AuthProviderProps){
       });
 
       if(credential){
+        const name = credential.fullName!.givenName!;
+        const photo = `https://ui-avatars.com/api/?name=${name}&length=1`
         const userLogged = {
           id: String(credential.user),
           email: credential.email!,
-          name: credential.fullName!.givenName!,
-          photo: undefined
+          name,
+          photo
         };
         setUser(userLogged);
 
@@ -101,6 +105,12 @@ function AuthProvider({ children }: AuthProviderProps){
     } catch (error : any) {
       throw new Error(error)
     }
+  }
+
+  async function signOut() {
+    setUser({} as User);
+
+    await AsyncStorage.removeItem(userStorageKey);
   }
 
   useEffect(() => {
@@ -120,7 +130,9 @@ function AuthProvider({ children }: AuthProviderProps){
     <AuthContext.Provider value={{
       user,
       signInWithGoogle,
-      signInWithApple
+      signInWithApple,
+      signOut,
+      userStorageLoading
     }}>
       {children}
     </AuthContext.Provider>
