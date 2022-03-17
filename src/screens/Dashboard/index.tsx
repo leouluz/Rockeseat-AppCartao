@@ -59,19 +59,24 @@ export function Dashboard() {
     collection: DataListProps[],
     type: 'positive' | 'negative'
   ) {
+
+    const collectionFiltered = collection.filter((transaction) => transaction.type === type);
+
+    if(collectionFiltered.length === 0)
+    return 0;
+
     // Função que recupera as informações das transactions
     // E verifica qual foi a ultima transação feita
     const lastTransaction = new Date(
-      Math.max.apply(Math, collection.
-        filter((transaction) => transaction.type === type).
-        map((transaction) => new Date(transaction.date).getTime())))
+      Math.max.apply(Math, collectionFiltered
+        .map((transaction) => new Date(transaction.date).getTime())))
 
     return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString('pt-BR', { month: 'long' })}`;
   }
 
   async function loadTransaction() {
 
-    const dataKey = '@gofinances:transactions';
+    const dataKey = `@gofinances:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
 
@@ -122,21 +127,27 @@ export function Dashboard() {
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: lastTransactionEntries
+        lastTransaction: lastTransactionEntries === 0 
+        ? 'Não há transações'
+        : `Última entrada dia ${lastTransactionEntries}`
       },
       expensives: {
         amout: expensiveTotal.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: lastTransactionExpensive
+        lastTransaction: lastTransactionExpensive === 0 
+        ? 'Não há transações'
+        : `Última Saida ${lastTransactionExpensive}`
       },
       total: {
         amout: total.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: lastTransactiontotal
+        lastTransaction: lastTransactiontotal === 0 
+        ? 'Não há movimentações'
+        : `Última atualização ${lastTransactiontotal}`
       },
     });
     setIsLoading(false)
@@ -187,19 +198,19 @@ export function Dashboard() {
                 type="up"
                 title="Entrada"
                 amount={highlightData.entries.amout}
-                lastTransaction={`Ultima entrada ${highlightData.entries.lastTransaction}`}
+                lastTransaction={highlightData.entries.lastTransaction}
               />
               <HighlightCard
                 type="down"
                 title="Saidas"
                 amount={highlightData.expensives.amout}
-                lastTransaction={`Ultima saida ${highlightData.expensives.lastTransaction}`}
+                lastTransaction={highlightData.expensives.lastTransaction}
               />
               <HighlightCard
                 type="total"
                 title="Total"
                 amount={highlightData.total.amout}
-                lastTransaction={`Ultima atualização ${highlightData.expensives.lastTransaction}`}
+                lastTransaction={highlightData.expensives.lastTransaction}
 
               />
 

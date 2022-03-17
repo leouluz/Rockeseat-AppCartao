@@ -15,6 +15,7 @@ import { CategorySelect } from '../CategorySelect';
 import { InputForm } from '../../components/Forms/InputForm';
 
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
 
 interface FormData {
   name: string,
@@ -34,6 +35,8 @@ export function Register() {
 
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalClose, setCategoryModalClose] = useState(false);
+
+  const { user } = useAuth();
 
   const [selectCategory, setSelectCategory] = useState({
     key: 'category',
@@ -81,7 +84,7 @@ export function Register() {
     }
 
     try {
-      const dataKey = '@gofinances:transactions';
+      const dataKey = `@gofinances:transactions_user:${user.id}`;
 
       const data = await AsyncStorage.getItem(dataKey);
 

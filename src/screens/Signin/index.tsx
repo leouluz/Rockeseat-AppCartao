@@ -17,7 +17,7 @@ import {
   Footer,
   FooterWrapper,
 } from './styles'
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator, Alert, Platform } from 'react-native';
 import theme from '../../global/style/theme';
 
 export function Signin() {
@@ -31,9 +31,8 @@ export function Signin() {
     } catch ( error ) {
       console.log(error);
       Alert.alert('Não foi possivel conectar a conta google')
-    } finally {
       setIsLoading(false);
-    }
+    } 
   }
 
   async function handleSignInWithApple(){
@@ -43,9 +42,8 @@ export function Signin() {
     } catch ( error ) {
       console.log(error);
       Alert.alert('Não foi possivel conectar a conta Apple')
-    } finally {
       setIsLoading(false);
-    }
+    } 
   }
 
   return (
@@ -70,16 +68,19 @@ export function Signin() {
 
      <Footer>
       <FooterWrapper>
+        {
+          Platform.OS === 'ios' && 
+          <SignInSocialButton 
+            title='Entrar com Apple'
+            svg={AppleSvg}
+            onPress={handleSignInWithApple}
+          />
+        }
         <SignInSocialButton 
           title='Entrar com Google'
           svg={GoogleSvg}
           onPress={handleSignInWithGoogle}
           />
-        <SignInSocialButton 
-          title='Entrar com Apple'
-          svg={AppleSvg}
-          onPress={handleSignInWithApple}
-        />
       </FooterWrapper>
 
       { isLoading && 
