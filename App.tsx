@@ -21,13 +21,9 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins'
 
-import { Signin }  from './src/screens/Signin'
-
 import theme from './src/global/style/theme';
 
 import { Routes } from './src/routes'
-
-import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
   const [fontsLoad] = useFonts({
