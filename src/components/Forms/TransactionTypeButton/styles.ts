@@ -33,6 +33,7 @@ export const Container = styled.View<ContainerProps>`
 `;
 
 export const Title = styled.Text`
+  color: ${({theme}) => theme.colors.text_dark};
   font-size: ${RFValue(14)}px;
   font-family: ${({theme}) => theme.fonts.regular};
 `;

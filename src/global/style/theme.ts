@@ -13,10 +13,22 @@ export default{
 
     shape: '#FFFFFF',
     title: '#363F5F',
+    // text: '#969CB2',
+    // text_dark: '#000000',
+    // background: '#F0F2F5',
+    
     text: '#969CB2',
     text_dark: '#000000',
-    background: '#F0F2F5'
+    background: '#1a1a1a',
 
+     preto_profundo: "#1a1a1a",
+      cinza_escuro: "#333333",
+      cinza_medio: "#555555",
+      azul_escuro: "#2a7fff",
+      verde_azulado: "#00b3b3",
+      verde_escuro: "#008c8c",
+      roxo_escuro: "#7020af",
+      roxo_mais_claro: "#8f43bf"
   },
 
   fonts:{
