@@ -10,7 +10,7 @@ export const Container = styled(TextInput)`
 
   font-family: ${({theme})=> theme.fonts.regular};
   
-  color: ${({theme}) => theme.colors.text_dark};
+  color: ${({theme}) => theme.colors.black_text};
 
   background-color: ${({theme}) => theme.colors.shape};
   border-radius: 5px;

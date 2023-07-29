@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled(RectButton).attrs({
-  opacity: 0.7
+  opacity: 0.8
 })`
   background-color: ${({theme}) => theme.colors.shape };
   flex-direction: row;
@@ -18,11 +18,11 @@ export const Container = styled(RectButton).attrs({
 export const Category = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular };
   font-size: ${RFValue(14)}px;
-
+  color: ${({theme}) => theme.colors.background};
 `;
 
 export const Icon = styled(Feather)`
   font-size: ${RFValue(20)}px;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.background};
 
 `;

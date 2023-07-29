@@ -46,18 +46,18 @@ export const Category = styled.View`
 
 export const Icon = styled(Feather)`
   font-size: ${RFValue(20)}px;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.black_text};
 
 `;
 
 export const CategoryName = styled.Text`
   font-size: ${RFValue(14)}px;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.black_text};
 
   margin-left: 17px;
 `;
 
 export const Date = styled.Text`
   font-size: ${RFValue(14)}px;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.black_text};
 `;

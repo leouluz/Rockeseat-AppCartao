@@ -183,12 +183,12 @@ export function Dashboard() {
                   />
                   <User>
                     <UserGreeting>Olá</UserGreeting>
-                    <UserName>{user.name}</UserName>
+                    <UserName>Leonardo</UserName>
                   </User>
                 </UserInfo>
-                <LogoutButton onPress={signOut}>
+                {/* <LogoutButton onPress={signOut}>
                   <Icon name="power" />
-                </LogoutButton>
+                </LogoutButton> */}
 
 
               </UserWrapper>
