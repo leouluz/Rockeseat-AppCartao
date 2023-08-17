@@ -145,12 +145,13 @@ export function Resume() {
               <VictoryPie
                 data={totalByCategories}
                 colorScale={totalByCategories.map(category => category.color)}
+                width={300} height={300}
                 style={{
                   labels: {
-                    fontSize: RFValue(18),
+                    fontSize: RFValue(22),
                     fontWeight: 'bold',
-                    fill: theme.colors.shape
-                  }
+                    fill: theme.colors.shape,
+                  },
                 }}
                 labelRadius={50}
                 x="percent"

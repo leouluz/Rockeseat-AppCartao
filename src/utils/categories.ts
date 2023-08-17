@@ -6,3 +6,7 @@ export const categories = [
     { key: 'leisure', name: 'Lazer', icon: 'heart', color: '#26195C' },
     { key: 'studies', name: 'Estudos', icon: 'book', color: '#9C001A' },
 ]; 
+// export const categories = [
+//     { key: 'debts', name: 'Contas', icon: 'shopping-bag', color: '#5636D3' },
+//     { key: 'Health', name: 'Saúde', icon: 'dollar-sign', color: '#12A454' },
+// ]; 
